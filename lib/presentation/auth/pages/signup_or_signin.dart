@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:spotify_app/common/helpers/is_dark_mode.dart';
-import 'package:spotify_app/common/widgets/appbar/app_bar.dart';
 import 'package:spotify_app/common/widgets/button/basic_app_button.dart';
 import 'package:spotify_app/core/configs/assets/app_images.dart';
 import 'package:spotify_app/core/configs/assets/app_vectors.dart';
 import 'package:spotify_app/core/configs/theme/app_colors.dart';
 import 'package:spotify_app/presentation/auth/pages/signin.dart';
 import 'package:spotify_app/presentation/auth/pages/signup.dart';
+
+import '../../../common/widgets/appbar/app_bar.dart';
 
 class SignupOrSigninPage extends StatelessWidget {
   const SignupOrSigninPage({super.key});
@@ -50,7 +51,7 @@ class SignupOrSigninPage extends StatelessWidget {
                       height: 21,
                     ),
                     const Text(
-                      'Spotify is a proprietary Swedish audio streaming and media services provider ',
+                      'Spotify_app is a proprietary Swedish audio streaming and media services provider ',
                       style: TextStyle(
                           fontWeight: FontWeight.w500,
                           fontSize: 13,

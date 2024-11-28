@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:spotify_app/common/widgets/appbar/app_bar.dart';
 import 'package:spotify_app/common/widgets/button/basic_app_button.dart';
 import 'package:spotify_app/core/configs/assets/app_vectors.dart';
+import 'package:spotify_app/data/models/auth/create_user_req.dart';
+import 'package:spotify_app/domain/usecases/auth/signup.dart';
 import 'package:spotify_app/presentation/auth/pages/signin.dart';
+import 'package:spotify_app/presentation/home/pages/home.dart';
+import 'package:spotify_app/service_locator.dart';
 
 class SignupPage extends StatelessWidget {
   SignupPage({super.key});
@@ -44,7 +48,29 @@ class SignupPage extends StatelessWidget {
             const SizedBox(
               height: 20,
             ),
-            BasicAppButton(onPressed: () async {}, title: 'Create Account')
+            BasicAppButton(
+                onPressed: () async {
+                  var result = await sl<SignupUseCase>().call(
+                      params: CreateUserReq(
+                          fullName: _fullName.text.toString(),
+                          email: _email.text.toString(),
+                          password: _password.text.toString()));
+                  result.fold((l) {
+                    var snackbar = SnackBar(
+                      content: Text(l),
+                      behavior: SnackBarBehavior.floating,
+                    );
+                    ScaffoldMessenger.of(context).showSnackBar(snackbar);
+                  }, (r) {
+                    Navigator.pushAndRemoveUntil(
+                        context,
+                        MaterialPageRoute(
+                            builder: (BuildContext context) =>
+                                const HomePage()),
+                        (route) => false);
+                  });
+                },
+                title: 'Create Account')
           ],
         ),
       ),
